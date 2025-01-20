@@ -22,7 +22,16 @@ public class Libro {
 
     public Libro(DatosLibro datosLibro) {
         this.titulo = datosLibro.titulo();
-        this.idioma = Idioma.fromString(datosLibro.idioma().get(0));
+        try {
+            Idioma idiomaEncontrado = Idioma.fromString(datosLibro.idioma().get(0));
+            if (idiomaEncontrado == Idioma.ESPAÑOL || idiomaEncontrado == Idioma.INGLES) {
+                this.idioma = idiomaEncontrado;
+            } else {
+                this.idioma = null;
+            }
+        } catch (IllegalArgumentException e) {
+            this.idioma = null;
+        }
         this.numeroDeDescargas = datosLibro.numeroDeDescargas();
         this.autor = new Autor(datosLibro.autor().get(0));
     }

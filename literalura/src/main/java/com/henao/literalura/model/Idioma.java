@@ -20,6 +20,7 @@ public enum Idioma {
         }
         throw new IllegalArgumentException("Ningun idioma encontrado");
     }
+
     public static Idioma fromNormal(String text) {
         try {
             for (Idioma idioma : Idioma.values()) {
@@ -33,5 +34,4 @@ public enum Idioma {
             return null;
         }
     }
-
 }
