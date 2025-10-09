@@ -47,7 +47,8 @@ jobs:
       - name: Verify coverage threshold (fail under 90%)
         run: |
           echo "Checking coverage threshold..."
-          COVERAGE=$(grep -oPm1 "(?<=<counter type=\"INSTRUCTION\" missed=\")\d+\" covered=\"\d+" target/site/jacoco/jacoco.xml | awk -F'"' '{missed=$1; covered=$3; total=missed+covered; printf "%.0f", (covered*100/total)}')
+          COVERAGE=$(awk -F'"' '/<counter type="INSTRUCTION"/ {missed=$2; covered=$4; total=missed+covered; if(total>0) printf "%.0f", (covered*100/total)}' target/site/jacoco/jacoco.xml)
+          | awk -F'"' '{missed=$1; covered=$3; total=missed+covered; printf "%.0f", (covered*100/total)}')
           echo "Coverage: $COVERAGE%"
           if [ "$COVERAGE" -lt 90 ]; then
             echo "❌ Coverage below 90%! (Current: $COVERAGE%)"
