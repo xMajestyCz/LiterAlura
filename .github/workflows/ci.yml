@@ -21,6 +21,7 @@ jobs:
   coverage:
     name: Run tests with coverage
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -40,14 +41,25 @@ jobs:
         with:
           name: coverage-report
           path: |
-            ${{ github.workspace }}/target/site/jacoco/coverage.xml
+            ${{ github.workspace }}/target/site/jacoco/jacoco.xml
             ${{ github.workspace }}/target/site/jacoco/index.html
 
-      - name: Check coverage threshold (90%)
-        id: jacoco
+      - name: Verify coverage threshold (fail under 90%)
+        run: |
+          echo "Checking coverage threshold..."
+          COVERAGE=$(grep -oPm1 "(?<=<counter type=\"INSTRUCTION\" missed=\")\d+\" covered=\"\d+" target/site/jacoco/jacoco.xml | awk -F'"' '{missed=$1; covered=$3; total=missed+covered; printf "%.0f", (covered*100/total)}')
+          echo "Coverage: $COVERAGE%"
+          if [ "$COVERAGE" -lt 90 ]; then
+            echo "❌ Coverage below 90%! (Current: $COVERAGE%)"
+            exit 1
+          else
+            echo "✅ Coverage above 90%! (Current: $COVERAGE%)"
+          fi
+
+      - name: Add coverage comment to PR
         uses: madrapps/jacoco-report@v1.6.1
         with:
-          paths: ${{ github.workspace }}/target/site/jacoco/coverage.xml
+          paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 90
           min-coverage-changed-files: 90
@@ -55,6 +67,7 @@ jobs:
           update-comment: true
           pass-emoji: ':green_circle:'
           fail-emoji: ':red_circle:'
+
 
   build:
     name: Build and upload artifact
