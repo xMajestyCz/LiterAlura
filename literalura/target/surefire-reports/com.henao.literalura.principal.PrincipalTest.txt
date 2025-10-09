@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.henao.literalura.principal.PrincipalTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.893 s -- in com.henao.literalura.principal.PrincipalTest
