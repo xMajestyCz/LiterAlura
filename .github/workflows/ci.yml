@@ -48,7 +48,6 @@ jobs:
         run: |
           echo "Checking coverage threshold..."
           COVERAGE=$(awk -F'"' '/<counter type="INSTRUCTION"/ {missed=$2; covered=$4; total=missed+covered; if(total>0) printf "%.0f", (covered*100/total)}' target/site/jacoco/jacoco.xml)
-          | awk -F'"' '{missed=$1; covered=$3; total=missed+covered; printf "%.0f", (covered*100/total)}')
           echo "Coverage: $COVERAGE%"
           if [ "$COVERAGE" -lt 90 ]; then
             echo "❌ Coverage below 90%! (Current: $COVERAGE%)"
@@ -56,6 +55,7 @@ jobs:
           else
             echo "✅ Coverage above 90%! (Current: $COVERAGE%)"
           fi
+
 
       - name: Add coverage comment to PR
         uses: madrapps/jacoco-report@v1.6.1
