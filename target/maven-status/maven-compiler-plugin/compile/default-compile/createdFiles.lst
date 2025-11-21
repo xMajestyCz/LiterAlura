@@ -1,0 +1,12 @@
+com\henao\literalura\model\DatosAutor.class
+com\henao\literalura\model\ResultadoDeLibros.class
+com\henao\literalura\app\Principal.class
+com\henao\literalura\model\Idioma.class
+com\henao\literalura\repository\LibroRepository.class
+com\henao\literalura\model\Libro.class
+com\henao\literalura\service\ConsumoAPI.class
+com\henao\literalura\model\DatosLibro.class
+com\henao\literalura\repository\AutorRepository.class
+com\henao\literalura\LiteraluraApplication.class
+com\henao\literalura\model\Autor.class
+com\henao\literalura\service\ConvierteDatos.class

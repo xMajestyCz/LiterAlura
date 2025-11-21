@@ -1,6 +1,6 @@
 package com.henao.literalura;
 
-import com.henao.literalura.principal.Principal;
+import com.henao.literalura.app.Principal;
 import com.henao.literalura.repository.AutorRepository;
 import com.henao.literalura.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
