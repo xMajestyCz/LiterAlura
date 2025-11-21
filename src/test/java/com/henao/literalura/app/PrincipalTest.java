@@ -59,7 +59,7 @@ class PrincipalTest {
             principal.mostrarMenu();
             String salida = output.toString();
             assertTrue(salida.contains("1 - Buscar Libro"));
-            assertTrue(salida.contains("Cerrando la aplicación")); // CORREGIDO: salida en lugar de sailda
+            assertTrue(salida.contains("Cerrando la aplicación"));
         }
     }
 
@@ -116,8 +116,6 @@ class PrincipalTest {
             assertTrue(salida.contains("Opción inválida"));
         }
     }
-
-    // NUEVOS TESTS PARA AUMENTAR COVERAGE
 
     @Test
     void testGetDatosLibro_NombreVacio() {
